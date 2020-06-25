@@ -1,19 +1,19 @@
 # ClassConnect REST API Documentation
 
-The task manager API is available at https://femi-task-manager.herokuapp.com/
+The task manager API is available at https://femi-classconnect.herokuapp.com
 
 
-# USER MODEL
+# TEACHER MODEL
 
-The following requests pertain to manipulating the user resource.
+The following requests pertain to manipulating the teacher resource.
 
-## Create user
+## Create teacher
 
 ### Request
 
-`POST /users`
+`POST /teachers`
 
-    curl -i -H 'Accept: application/json' -d 'name=SamSmith&email=smith@hello.com&password='sam123$' https://femi-task-manager.herokuapp.com/users
+    curl -i -H 'Accept: application/json' -d 'name=SamSmith&email=smith@hello.com&password='sam123&class=year9' https://femi-classconnect.herokuapp.com/teachers
 
 ### Response
 
@@ -25,16 +25,16 @@ The following requests pertain to manipulating the user resource.
     Location: /thing/1
     Content-Length: 348
 
-    {"user":{"age":0,"_id":"5ee649619e3b4a001720a4b3","name":"Sam Smith","email":"smith@hello.com","createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T15:59:29.863Z","__v":1},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ6"}
+    {"teacher":{"designation":"Class Teacher","age":0,"_id":"5ee649619e3b4a001720a4b3","name":"Sam Smith","email":"smith@hello.com","class": "Year 5 Rose","createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T15:59:29.863Z","__v":1},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ6"}
 
 
-## Login user
+## Login teacher
 
 ### Request
 
-`POST /users/login`
+`POST /teachers/login`
 
-    curl -i -H 'Accept: application/json' -d 'email=smith@hello.com&password='sam123$' https://femi-task-manager.herokuapp.com/users
+    curl -i -H 'Accept: application/json' -d 'email=smith@hello.com&password='sam123$' https://femi-classconnect.herokuapp.com/teachers/login
 
 ### Response
 
@@ -46,36 +46,36 @@ The following requests pertain to manipulating the user resource.
     Location:
     Content-Length: 348
 
-    {"user":{"age":0,"_id":"5ee649619e3b4a001720a4b3","name":"Sam Smith","email":"smith@hello.com","createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T15:59:29.863Z","__v":1},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ6"}
+    {"teacher":{"designation":"Class Teacher","age":0,"_id":"5ee649619e3b4a001720a4b3","name":"Sam Smith","email":"smith@hello.com","class": "Year 5 Rose","createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T15:59:29.863Z","__v":1},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ6"}
 
 
-## Read user profile
+## Read teacher profile
 
 ### Request
 
-`GET /users/me`
+`GET /teachers/me`
 
-    curl -i -H 'Accept: application/json' -d 'email=smith@hello.com&password='sam123$' https://femi-task-manager.herokuapp.com/users/me
+    curl -i -H 'Accept: application/json' -d https://femi-classconnect.herokuapp.com/teachers/me
 
 ### Response
 
     HTTP/1.1 200 OK
     Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 201 Created
+    Status: 200 OK
     Connection: keep-alive
     Content-Type: application/json
     Location: /thing/1
     Content-Length: 348
 
-    {"age":0,"_id":"5ee649619e3b4a001720a4b3","name":"Sam Smith","email":"smith@hello.com","createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T18:47:51.411Z","__v":3}
+    {"teacher":{"designation":"Class Teacher","age":0,"_id":"5ee649619e3b4a001720a4b3","name":"Sam Smith","email":"smith@hello.com","class": "Year 5 Rose","createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T15:59:29.863Z","__v":1}}
 
-## Update user
+## Update teacher
 
 ### Request
 
-`PATCH /users/me`
+`PATCH /teachers/me`
 
-    curl -i -H 'Accept: application/json' -d 'age=32' https://femi-task-manager.herokuapp.com/users/me
+    curl -i -H 'Accept: application/json' -d 'age=32' https://femi-classconnect.herokuapp.com/teachers/me
 
 ### Response
 
@@ -89,13 +89,13 @@ The following requests pertain to manipulating the user resource.
     {"age":32,"_id":"5ee649619e3b4a001720a4b3","name":"Sam Smith","email":"smith@hello.com","createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T18:47:51.411Z","__v":3}
 
 
-## Logout user
+## Logout teacher
 
 ### Request
 
-`POST /users/logout`
+`POST /users/teacher`
 
-    curl -i -H 'Accept: application/json' -d https://femi-task-manager.herokuapp.com/users/logout
+    curl -i -H 'Accept: application/json' -d https://femi-classconnect.herokuapp.com/teachers/logout
 
 ### Response
 
@@ -111,9 +111,9 @@ The following requests pertain to manipulating the user resource.
 
 ### Request
 
-`POST /users/logoutAll`
+`POST /teachers/logoutAll`
 
-    curl -i -H 'Accept: application/json' -d https://femi-task-manager.herokuapp.com/users/logoutAll
+    curl -i -H 'Accept: application/json' -d https://femi-classconnect.herokuapp.com/teachers/logoutAll
 
 ### Response
 
@@ -125,13 +125,13 @@ The following requests pertain to manipulating the user resource.
     Content-Length: 0
 
 
-## Delete user
+## Delete teacher
 
 ### Request
 
-`DELETE /users/me`
+`DELETE /teachers/me`
 
-    curl -i -H 'Accept: application/json' -X DELETE https://femi-task-manager.herokuapp.com/users/me
+    curl -i -H 'Accept: application/json' -X DELETE https://femi-classconnect.herokuapp.com/teachers/me
 
 ### Response
 
@@ -142,17 +142,17 @@ The following requests pertain to manipulating the user resource.
 
 
 
-# TASK MODEL
+# STUDENT MODEL
 
-The following requests pertain to manipulating the task resource.
+The following requests pertain to manipulating the student resource.
 
-## Create task
+## Create student
 
 ### Request
 
-`POST /tasks`
+`POST /students`
 
-    curl -i -H 'Accept: application/json' -d 'description="Go Shopping' https://femi-task-manager.herokuapp.com/tasks
+    curl -i -H 'Accept: application/json' -d 'name=JonSnow&email=jon@hello.com&password='jon123&class=year9&guardian="MichaelSnow' https://femi-classconnect.herokuapp.com/students
 
 ### Response
 
@@ -161,19 +161,19 @@ The following requests pertain to manipulating the task resource.
     Status: 201 Created
     Connection: keep-alive
     Content-Type: application/json
-    Location:
-    Content-Length: 203
+    Location: /thing/1
+    Content-Length: 348
 
-    {"completed":false,"_id":"5ee671235f9ccc00173ddb37","description":"Go shopping","owner":"5ee649619e3b4a001720a4b3","createdAt":"2020-06-14T18:49:07.917Z","updatedAt":"2020-06-14T18:49:07.917Z","__v":0}
+    {"student":{"age":0,"_id":"5ee649619e3b4a001720a4b3","name":"Jon Snow","email":"jon@hello.com","class": "Year 9", "guardian": "Michael Snow",createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T15:59:29.863Z","__v":1},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ6"}
 
 
-## Read task
+## Read student
 
 ### Request
 
-`GET /task/:id`
+`GET /students/:id`
 
-    curl -i -H 'Accept: application/json' -d '_id=524885224fef5a5' https://femi-task-manager.herokuapp.com/tasks/:id
+    curl -i -H 'Accept: application/json' -d '_id=524885224fef5a5' https://femi-classconnect.herokuapp.com/students
 
 ### Response
 
@@ -185,16 +185,15 @@ The following requests pertain to manipulating the task resource.
     Location:
     Content-Length: 203
 
-    {"completed":false,"_id":"5ee671235f9ccc00173ddb37","description":"Go shopping","owner":"5ee649619e3b4a001720a4b3","createdAt":"2020-06-14T18:49:07.917Z","updatedAt":"2020-06-14T18:49:07.917Z","__v":0}
+    {"student":{"age":0,"_id":"5ee649619e3b4a001720a4b3","name":"Jon Snow","email":"jon@hello.com","class": "Year 9", "guardian": "Michael Snow",createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T15:59:29.863Z","__v":1}}
 
-
-## Read tasks
+## Read students
 
 ### Request
 
-`GET /tasks
+`GET /students
 
-    curl -i -H 'Accept: application/json' -d https://femi-task-manager.herokuapp.com/tasks
+    curl -i -H 'Accept: application/json' -d https://femi-classconnect.herokuapp.com/students
 
 ### Response
 
@@ -206,16 +205,16 @@ The following requests pertain to manipulating the task resource.
     Location:
     Content-Length: 203
 
-    {"completed":false,"_id":"5ee671235f9ccc00173ddb37","description":"Go shopping","owner":"5ee649619e3b4a001720a4b3","createdAt":"2020-06-14T18:49:07.917Z","updatedAt":"2020-06-14T18:49:07.917Z","__v":0}
+    {"student":{"age":0,"_id":"5ee649619e3b4a001720a4b3","name":"Jon Snow","email":"jon@hello.com","class": "Year 9", "guardian": "Michael Snow",createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T15:59:29.863Z","__v":1}}
 
 
-## Update task
+## Update student
 
 ### Request
 
-`PATCH /task/:id`
+`PATCH /students/:id`
 
-    curl -i -H 'Accept: application/json' -d 'completed=true' https://femi-task-manager.herokuapp.com/tasks/:id
+    curl -i -H 'Accept: application/json' -d 'age=16' https://femi-classconnect.herokuapp.com/students/:id
 
 ### Response
 
@@ -226,17 +225,17 @@ The following requests pertain to manipulating the task resource.
     Content-Type: application/json
     Content-Length: 203
 
-    {"completed":true,"_id":"5ee671235f9ccc00173ddb37","description":"Go shopping","owner":"5ee649619e3b4a001720a4b3","createdAt":"2020-06-14T18:49:07.917Z","updatedAt":"2020-06-14T18:49:07.917Z","__v":0}
+    {"student":{"age":16,"_id":"5ee649619e3b4a001720a4b3","name":"Jon Snow","email":"jon@hello.com","class": "Year 9", "guardian": "Michael Snow",createdAt":"2020-06-14T15:59:29.750Z","updatedAt":"2020-06-14T15:59:29.863Z","__v":1}}
 
 
 
-## Delete task
+## Delete student
 
 ### Request
 
-`DELETE /tasks/:id`
+`DELETE /students/:id`
 
-    curl -i -H 'Accept: application/json' -X DELETE https://femi-task-manager.herokuapp.com/tasks/:id
+    curl -i -H 'Accept: application/json' -X DELETE https://femi-classconnect.herokuapp.com/students/:id
 
 ### Response
 
@@ -244,3 +243,170 @@ The following requests pertain to manipulating the task resource.
     Date: Thu, 24 Feb 2011 12:36:32 GMT
     Status: 200 OK
     Connection: close
+
+
+
+
+# SUBJECT/GRADES MODELS
+
+The following requests pertain to manipulating the subject/grades resource.
+
+## Create subject
+
+### Request
+
+`POST /subjects`
+
+    curl -i -H 'Accept: application/json' -d 'title=Mathematics' https://femi-classconnect.herokuapp.com/subjects
+
+### Response
+
+    HTTP/1.1 201 Created
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 201 Created
+    Connection: keep-alive
+    Content-Type: application/json
+    Location: /thing/1
+    Content-Length: 348
+
+    {"_id":"5ef4d8046121de001761b9dd","title":"Mathematics","owner":"5ef216dc3b9a9d259c6f157c","grades":[],"createdAt":"2020-06-25T16:59:48.537Z","updatedAt":"2020-06-25T16:59:48.537Z","__v":0}
+
+
+## Read subject
+
+### Request
+
+`GET /subjects/:id`
+
+    curl -i -H 'Accept: application/json' -d '_id=524885224fef5a5' https://femi-classconnect.herokuapp.com/subjects
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: keep-alive
+    Content-Type: application/json
+    Location:
+    Content-Length: 203
+
+    {"_id":"5ef4d8046121de001761b9dd","title":"Mathematics","owner":"5ef216dc3b9a9d259c6f157c","grades":[],"createdAt":"2020-06-25T16:59:48.537Z","updatedAt":"2020-06-25T16:59:48.537Z","__v":0}
+
+## Read subjects
+
+### Request
+
+`GET /subjects
+
+    curl -i -H 'Accept: application/json' -d https://femi-classconnect.herokuapp.com/subjects
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: keep-alive
+    Content-Type: application/json
+    Location:
+    Content-Length: 203
+
+    {"_id":"5ef4d8046121de001761b9dd","title":"Mathematics","owner":"5ef216dc3b9a9d259c6f157c","grades":[],"createdAt":"2020-06-25T16:59:48.537Z","updatedAt":"2020-06-25T16:59:48.537Z","__v":0}
+
+
+## Update subject
+
+### Request
+
+`PATCH /subjects/:id`
+
+    curl -i -H 'Accept: application/json' -d 'title=Further Mathematics' https://femi-classconnect.herokuapp.com/subjects/:id
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 203
+
+    {"_id":"5ef4d8046121de001761b9dd","title":"Further Mathematics","owner":"5ef216dc3b9a9d259c6f157c","grades":[],"createdAt":"2020-06-25T16:59:48.537Z","updatedAt":"2020-06-25T16:59:48.537Z","__v":0}
+
+
+
+## Delete subject
+
+### Request
+
+`DELETE /subjects/:id`
+
+    curl -i -H 'Accept: application/json' -X DELETE https://femi-classconnect.herokuapp.com/subjects/:id
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:32 GMT
+    Status: 200 OK
+    Connection: close
+
+
+## Create subject grade
+
+### Request
+
+`POST /subjects/grades`
+
+    curl -i -H 'Accept: application/json' -d 'year=2020&term=first&score=86&owner=5eee2ffa0b1b7d320cac2940' https://femi-classconnect.herokuapp.com/subjects/grades
+
+### Response
+
+    HTTP/1.1 201 Created
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 201 Created
+    Connection: keep-alive
+    Content-Type: application/json
+    Location: /thing/1
+    Content-Length: 348
+
+    {"_id":"5ef4da966121de001761b9de","year":"2020","term":"first","score":86,"owner":"5ef217f83b9a9d259c6f157f","grade":"B"}
+
+
+## Update subject grade
+
+### Request
+
+`PATCH /subjects/grades/:id`
+
+    curl -i -H 'Accept: application/json' -d 'gradeId=5ef4da966121de001761b9de&score=98' https://femi-classconnect.herokuapp.com/subjects/grades/:id
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 203
+
+    {"_id":"5ef4da966121de001761b9de","year":"2020","term":"first","score":98,"owner":"5ef217f83b9a9d259c6f157f","grade":"A","createdAt":"2020-06-25T17:10:46.079Z","updatedAt":"2020-06-25T17:13:54.959Z"}
+
+
+## Read subject grades
+
+### Request
+
+`GET /subjects/grades/me`
+
+    curl -i -H 'Accept: application/json' -d 'owner=524885224fef5a5&teacher=5ef216dc3b9a9d259c6f157c' https://femi-classconnect.herokuapp.com/subjects/grades/me
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: keep-alive
+    Content-Type: application/json
+    Location:
+    Content-Length: 203
+
+    [{"subject":"Further Mathematics","grades":[{"_id":"5ef21a763b9a9d259c6f1585","year":"2020","term":"first","score":98,"owner":"5ef218453b9a9d259c6f1581","grade":"A","createdAt":"2020-06-23T15:06:30.516Z","updatedAt":"2020-06-25T15:36:28.931Z"},{"_id":"5ef21a803b9a9d259c6f1587","year":"2020","term":"second","score":58,"owner":"5ef218453b9a9d259c6f1581","grade":"E","createdAt":"2020-06-23T15:06:40.704Z","updatedAt":"2020-06-25T15:01:53.097Z"},{"_id":"5ef21a873b9a9d259c6f1589","year":"2020","term":"third","score":86,"owner":"5ef218453b9a9d259c6f1581","grade":"B","createdAt":"2020-06-23T15:06:47.624Z","updatedAt":"2020-06-23T15:06:47.624Z"}]}]
