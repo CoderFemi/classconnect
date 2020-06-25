@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const { Subject, Grade } = require('../models/subject')
+const Student = require('../models/student')
 const router = new express.Router()
 const { studentAuth, teacherAuth } = require('../middleware/auth')
 
@@ -111,11 +112,16 @@ router.post('/subjects/grades/:id', teacherAuth, async (req, res) => {
     try {
 
         const subject = await Subject.findOne({ _id: req.params.id, owner: req.teacher._id })
+        const student = await Student.findOne({ _id: req.body.owner })
         const studentGrade = subject.grades.find((grade) => grade.year === req.body.year && grade.term === req.body.term.toLowerCase() && grade.owner.toString() === req.body.owner)
     
         if (subject.length === 0) {
             return res.status(404).send("Subject not found!")
            
+        }
+
+        if (student.owner.toString() !== req.teacher._id.toString()) {
+            return res.status(404).send("You cannot post to another teacher\'s student!")
         }
         
         if (studentGrade) {  
@@ -158,14 +164,22 @@ router.patch('/subjects/grades/:id', teacherAuth, async (req, res) => {
     try {
 
         const subject = await Subject.findOne({ _id: req.params.id, owner: req.teacher._id })
+        //const students = await Student.find({ owner: req.teacher._id })
+        const studentGrade = await subject.grades.find((grade) => grade._id.toString() === req.body.gradeId)
+        const student = await Student.findOne({ _id: studentGrade.owner })
+        //const student = await Student.findOne({ owner: studentGrade.owner, owner: req.teacher._id })
+        
+        //const validStudent = students.filter((student) => student._id.toString() === studentGrade.owner.toString())
 
-        if (subject.length === 0) {
+        if (Object.keys(subject).length === 0) {
             return res.status(404).send("Subject not found!")
         }
 
-        const studentGrade = subject.grades.find((grade) => grade._id.toString() === req.body.gradeId)
+        if (student.owner.toString() !== req.teacher._id.toString()) {
+            return res.status(404).send("You cannot post to another teacher\'s student!")
+        }
 
-        if (studentGrade === undefined) {    
+        if (Object.keys(studentGrade).length === 0) {    
             return res.status(404).send('Score does not exist!')
 
         } else {
